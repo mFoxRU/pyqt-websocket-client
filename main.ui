@@ -94,6 +94,9 @@
     </item>
     <item row="3" column="0">
      <widget class="QPlainTextEdit" name="output_log">
+      <property name="contextMenuPolicy">
+       <enum>Qt::CustomContextMenu</enum>
+      </property>
       <property name="tabChangesFocus">
        <bool>true</bool>
       </property>

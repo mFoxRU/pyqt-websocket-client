@@ -30,6 +30,8 @@ class App(QtGui.QMainWindow):
         self.ui.input_msg.returnPressed.connect(
                 self.ui.button_send.click)
         self.ui.button_send.clicked.connect(self.send_msg)
+        self.ui.output_log.customContextMenuRequested.connect(
+                self.log_context_menu)
 
         # Mix
         self.ui.input_url.setText(url)
@@ -71,6 +73,14 @@ class App(QtGui.QMainWindow):
         msg = str(self.ui.input_msg.text())
         self.factory.send_msg(msg)
         self.ui.input_msg.clear()
+
+    @QtCore.pyqtSlot(QtCore.QPoint)
+    def log_context_menu(self, point):
+        menu = self.ui.output_log.createStandardContextMenu()
+        menu.addSeparator()
+        menu.addAction('Clear All', self.ui.output_log.clear)
+        menu.exec_(self.ui.output_log.mapToGlobal(point))
+        del menu
 
     def log_line(self, msg):
         self.ui.output_log.insertPlainText(str(msg))
